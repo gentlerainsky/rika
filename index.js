@@ -5,6 +5,7 @@ const { get, trim, toLower, capitalize } = require('lodash/fp')
 const bodyParser = require('body-parser')
 const { Address, User } = require('./model')
 const { getAddressText } = require('./getLocation')
+const rika = require('./content/rika')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -35,9 +36,9 @@ app.post('/api/slack', async (req, res) => {
 
     const names = users.map(user => (capitalize(user.name)))
     if (names.length === 0) {
-      text = 'No one at the office.'
+      text = rika.noOne()
     } else {
-      text = [...new Set(names)].join(', ')
+      text = rika.listPeople([...new Set(names)].join(', '))
     }
     return res.send(text)
   }

@@ -16,8 +16,20 @@ const dontKnow = (name) => {
   return sprintf(randSentence, name)
 }
 
+const noOne = () => {
+  const randSentence = sentence.noOne[Math.floor(Math.random() * sentence.noOne.length)];
+  return sprintf(randSentence)
+}
+
+const listPeople = (people) => {
+  const randSentence = sentence.listPeople[Math.floor(Math.random() * sentence.listPeople.length)];
+  return sprintf(randSentence, people)
+}
+
 module.exports = {
   here,
   notHere,
-  dontKnow
+  dontKnow,
+  noOne,
+  listPeople
 }

@@ -13,5 +13,13 @@ module.exports = {
   dontKnow: [
     "I don't know %1$s. Is he even work here?",
     "I don't know %1$s. Is she even work here?",
+  ],
+  noOne: [
+    "There're no one here",
+    "Everyone's at home"
+  ],
+  listPeople: [
+    "There are %1$s at our office",
+    "%1$s are at office now"
   ]
 }

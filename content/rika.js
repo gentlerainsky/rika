@@ -12,7 +12,7 @@ const notHere = (name) => {
 }
 
 const dontKnow = (name) => {
-  const randSentence = sentence.notKnow[Math.floor(Math.random() * sentence.notKnow.length)];
+  const randSentence = sentence.dontKnow[Math.floor(Math.random() * sentence.dontKnow.length)];
   return sprintf(randSentence, name)
 }
 

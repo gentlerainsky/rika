@@ -23,7 +23,7 @@ Address.statics.getActiveScoreByMacAddress = async function getActiveScoreByMacA
   if (logs.length > 0) latestFloor = logs[0].floor
   logs.forEach((log) => {
     if (prevLog) {
-      if (log.floor != prevLog.floor) score += 100
+      if (log.floor != prevLog.floor) score += 320
       if (log.tx > 0) score += 10
       if (log.rx > 0) score += 10
       if (prevLog.tx != log.tx) {

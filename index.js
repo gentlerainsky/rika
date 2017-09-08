@@ -21,6 +21,7 @@ app.post('/api/slack', async (req, res) => {
   const [sanitizedName] = [req.body.text]
     .map(trim)
     .map(toLower)
+    .map(str => str.replace('@', ''))
 
   // const { name, floor } = await findByName(sanitizedName)
   // res.send(tell(name, floor))
@@ -35,7 +36,7 @@ app.post('/api/address', (req, res) => {
     trace('MacAddress: ')(doc.mac_address)
     trace('Floor: ')(doc.floor)
     saveAddress(doc)
-    return findAndUpdateFloor({ macAddress: doc.mac_address, floor: doc.floor })
+    return findAndUpdateFloor({ macAddress: doc.mac_address, floor: doc.floor, updatedAt: new Date() })
   })
   res.send('poop')
 })

@@ -6,7 +6,7 @@ const User = new Schema({
   device: String,
   macAddress: String,
   floor: Number,
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now }
 })
 
 module.exports = mongoose.model('User', User)

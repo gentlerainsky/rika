@@ -22,12 +22,25 @@ app.post('/api/slack', async (req, res) => {
     .map(trim)
     .map(toLower)
     .map(str => str.replace('@', ''))
+  let text
+  if (sanitizedName === 'office') {
+    var t = new Date();
+    t.setSeconds(t.getSeconds() - 30)
+    const users = await User.find({
+      updatedAt: { $gte: t },
+      device: { $ne: 'Device' }
+    }).select('name')
 
-  // const { name, floor } = await findByName(sanitizedName)
-  // res.send(tell(name, floor))
-  const requestName = req.query.name
+    const names = users.map(user => (capitalize(user.name)))
+    if (names.length === 0) {
+      text = 'No one at the office.'
+    } else {
+      text = [...new Set(names)].join(', ')
+    }
+    return res.send(text)
+  }
   const users = await User.find({ name: sanitizedName })
-  const text = await getAddressText(requestName, users)
+  text = await getAddressText(capitalize(sanitizedName), users)
   res.send(text)
 })
 app.post('/api/address', (req, res) => {

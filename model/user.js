@@ -5,7 +5,7 @@ const User = new Schema({
   name: String,
   device: String,
   macAddress: String,
-  floor: String,
+  floor: Number,
   createdAt: { type: Date, default: Date.now },
 })
 

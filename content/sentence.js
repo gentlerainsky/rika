@@ -26,8 +26,8 @@ module.exports = {
     "This is holiday you know. No one there! :angry:",
   ],
   listPeople: [
-    "There are %1$s at our office :indeed:",
-    "%1$s are at office now :cat:"
+    "There are %1$s at our office. %2$s people in total :indeed:",
+    "There are %2$s in people. %1$s are at office now :cat:"
   ],
   emoticonMap: {
     g: ':g:',

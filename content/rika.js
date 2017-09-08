@@ -22,9 +22,10 @@ const noOne = () => {
 }
 
 const listPeople = (people) => {
+  const numPeople = people.length
   const peopleString = `@${people.join(', @')}`
   const randSentence = sentence.listPeople[Math.floor(Math.random() * sentence.listPeople.length)];
-  return sprintf(randSentence, peopleString)
+  return sprintf(randSentence, peopleString, numPeople)
 }
 
 module.exports = {

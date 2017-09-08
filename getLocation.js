@@ -22,10 +22,10 @@ const getAddressText = async (name, devices) => {
     }
   }
   if (activeDevice) {
-    return `${name} is on ${currentFloor}${ORDINAL_NUMBER[currentFloor]} floor with his ${activeDevice.device}.`
+    return `${name} is on ${currentFloor}${ORDINAL_NUMBER[currentFloor]} floor with ${activeDevice.device}.`
   }
   if (devices.length > 0) {
-    return `${name} is probably not with his device.`
+    return `${name} is probably not with device.`
   }
   return `${name} is not here.`
 }

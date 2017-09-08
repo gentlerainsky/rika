@@ -9,6 +9,9 @@ const Address = new Schema({
   floor: Number,
   signal: Number,
   speed: Number,
+  tx: Number,
+  rx: Number,
+  uptime: Number,
   createdAt: { type: Date, default: Date.now },
 })
 

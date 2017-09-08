@@ -3,7 +3,7 @@ const sentence = require('./sentence')
 
 const here = (name, floor, device) => {
   const randSentence = sentence.here[Math.floor(Math.random() * sentence.here.length)];
-  return sprintf(randSentence, `name :${sentence.emoticonMap[name.toLowerCase()]}:`, floor, device)
+  return sprintf(randSentence, `${name} ${sentence.emoticonMap[name.toLowerCase()]}`, floor, device)
 }
 
 const notHere = (name) => {

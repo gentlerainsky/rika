@@ -27,7 +27,7 @@ module.exports = {
   ],
   listPeople: [
     "There are %1$s at our office. %2$s people in total :indeed:",
-    "There are %2$s in people. %1$s are at office now :cat:"
+    "There are %2$s people there. %1$s are at office now :cat:"
   ],
   emoticonMap: {
     g: ':g:',

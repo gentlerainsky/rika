@@ -13,21 +13,28 @@ const getAddressText = async (name, devices) => {
   let currentFloor
   let highScore = 0
   for (let device of devices) {
-    const { score: activeScore, latestFloor } = await Address.getActiveScoreByMacAddress(device.macAddress)
-    console.log(`${name}'s ${device.device} has activeScore = ${activeScore} at ${latestFloor}${ORDINAL_NUMBER[latestFloor]} flr.`)
-    if(activeScore > highScore) {
-      highScore = activeScore
-      activeDevice = device
-      currentFloor = latestFloor
+    if (device.macAddress) {
+      const { score: activeScore, latestFloor } = await Address.getActiveScoreByMacAddress(device.macAddress)
+      console.log(`${name}'s ${device.device} has activeScore = ${activeScore} at ${latestFloor}${ORDINAL_NUMBER[latestFloor]} flr.`)
+      if(activeScore > highScore) {
+        highScore = activeScore
+        activeDevice = device
+        currentFloor = latestFloor
+      }
     }
   }
   if (activeDevice) {
     return `${name} is on ${currentFloor}${ORDINAL_NUMBER[currentFloor]} floor with ${activeDevice.device}.`
   }
   if (devices.length > 0) {
-    return `${name} is probably not with device.`
+    const t = new Date()
+    t.setSeconds(t.getSeconds() - 30)
+    for (let device of devices) {
+      if (device.updatedAt > t) return `${name} is probably not with device.`
+    }
+    return `${name} is not here.`
   }
-  return `${name} is not here.`
+  return `${name} is not jittstor.`
 }
 
 

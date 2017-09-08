@@ -24,7 +24,7 @@ app.post('/api/slack', async (req, res) => {
     .map(str => str.replace('@', ''))
   let text
   if (sanitizedName === 'office') {
-    var t = new Date();
+    const t = new Date()
     t.setSeconds(t.getSeconds() - 30)
     const users = await User.find({
       updatedAt: { $gte: t },

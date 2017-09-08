@@ -18,6 +18,8 @@ app.get('/', async (req, res) => {
   res.send('Poop!')
 })
 app.post('/api/slack', async (req, res) => {
+  console.log(`${new Date()} - ${req.body.user_name} finds ${req.body.text}`)
+
   const [sanitizedName] = [req.body.text]
     .map(trim)
     .map(toLower)
@@ -44,10 +46,9 @@ app.post('/api/slack', async (req, res) => {
   res.send(text)
 })
 app.post('/api/address', (req, res) => {
-  console.log(req.body)
   req.body.map(doc => {
-    trace('MacAddress: ')(doc.mac_address)
-    trace('Floor: ')(doc.floor)
+    // trace('MacAddress: ')(doc.mac_address)
+    // trace('Floor: ')(doc.floor)
     saveAddress(doc)
     return findAndUpdateFloor({ macAddress: doc.mac_address, floor: doc.floor, updatedAt: new Date() })
   })
@@ -82,7 +83,7 @@ async function saveAddress(doc) {
 async function findAndUpdateFloor({ macAddress, floor, updatedAt }) {
   const userId = await getUserId(macAddress)
   if (!userId) {
-    trace('This mac address not in DB: ')(macAddress)
+    trace(`${new Date()} - This mac address not in DB: `)(macAddress)
     return null
   }
   return update(userId, { floor, updatedAt })

@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
 const Address = mongoose.model('Address')
+const rika = require('./content/rika')
+
 const ORDINAL_NUMBER = {
   '1': 'st',
   '2': 'nd',
   '3': 'rd',
   '4': 'th'
 }
-
 
 const getAddressText = async (name, devices) => {
   let activeDevice
@@ -24,7 +25,7 @@ const getAddressText = async (name, devices) => {
     }
   }
   if (activeDevice) {
-    return `${name} is on ${currentFloor}${ORDINAL_NUMBER[currentFloor]} floor with ${activeDevice.device}.`
+    return rika.here(name, `${currentFloor}${ORDINAL_NUMBER[currentFloor]}`, activeDevice.device) //${activeDevice.device}
   }
   if (devices.length > 0) {
     const t = new Date()
@@ -32,9 +33,9 @@ const getAddressText = async (name, devices) => {
     for (let device of devices) {
       if (device.updatedAt > t) return `${name} is probably not with device.`
     }
-    return `${name} is not here.`
+    return rika.notHere(name)
   }
-  return `${name} is not jittstor.`
+  return rika.dontKnow(name)
 }
 
 

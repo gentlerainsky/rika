@@ -2,16 +2,16 @@ const express = require('express')
 const app = express()
 
 const bodyParser = require('body-parser')
-const { Address } = require('./model')
+const { Address, User } = require('./model')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+
+
 app.get('/', function (req, res) {
-  res.send('Hello World!')
+  res.send('Poop!')
 })
 app.post('/api', (req, res) => {
-  (new Address({name: 'hello'})).save().then(str => console.log('hello', str))
-  console.log(req.body)
   res.send('poop')
 })
 app.post('/api/address', (req, res) => {

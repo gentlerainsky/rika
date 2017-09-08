@@ -31,7 +31,7 @@ const getAddressText = async (name, devices) => {
     const t = new Date()
     t.setSeconds(t.getSeconds() - 30)
     for (let device of devices) {
-      if (device.updatedAt > t) return `${name} is probably not with device.`
+      if (device.updatedAt > t) return `${name} is probably not with his/her device.`
     }
     return rika.notHere(name)
   }

@@ -1,8 +1,8 @@
 module.exports = {
   here: [
-    '%2$s floor! Just come and find %1$s with %3$s :happygoat:',
-    '%1$s is on the %2$s Floor with %3$s :heart:',
-    'Come down and meet %1$s at Floor %2$s with %3$s :strawberry:',
+    '%2$s floor! Just come and find %1$s with his/her %3$s :happygoat:',
+    '%1$s is on the %2$s Floor with his/her %3$s :heart:',
+    'Come down and meet %1$s at Floor %2$s with his/her %3$s :strawberry:',
     "%1$s's %3$s: BUSY BUSY BUSYY!!! Floor %2$s quickly :fireball:"
   ],
   notHere: [

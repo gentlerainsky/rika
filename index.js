@@ -3,14 +3,20 @@ const app = express()
 
 const bodyParser = require('body-parser')
 const { Address, User } = require('./model')
+const { getAddressText } = require('./getLocation')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 
-app.get('/', function (req, res) {
-  res.send('Poop!')
+app.get('/', async function (req, res) {
+  const requestName = req.query.name
+  const users = await User.find({ name: requestName })
+  console.log(users)
+  const text = await getAddressText(requestName, users)
+  res.send(text)
 })
+
 app.post('/api', (req, res) => {
   res.send('poop')
 })

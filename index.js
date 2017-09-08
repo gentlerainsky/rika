@@ -79,13 +79,13 @@ async function saveAddress(doc) {
     // .then(trace('Address Input saved'))
 }
 
-async function findAndUpdateFloor({ macAddress, floor }) {
+async function findAndUpdateFloor({ macAddress, floor, updatedAt }) {
   const userId = await getUserId(macAddress)
   if (!userId) {
     trace('This mac address not in DB: ')(macAddress)
     return null
   }
-  return update(userId, floor)
+  return update(userId, { floor, updatedAt })
     // .then(trace('Find and Update result: '))
 }
 
@@ -97,7 +97,7 @@ async function getUserId(macAddress) {
     .then(get('_id'))
 }
 
-async function update(_id, floor) {
-  return User.update({ _id }, { floor })
+async function update(_id, data) {
+  return User.update({ _id }, data)
     // .then(trace('Update result'))
 }

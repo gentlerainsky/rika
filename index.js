@@ -38,7 +38,7 @@ app.post('/api/slack', async (req, res) => {
     if (names.length === 0) {
       text = rika.noOne()
     } else {
-      text = rika.listPeople([...new Set(names)].join(', '))
+      text = rika.listPeople([...new Set(names)])
     }
     return res.send(text)
   }

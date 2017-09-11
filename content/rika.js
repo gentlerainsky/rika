@@ -3,16 +3,16 @@ const sentence = require('./sentence')
 
 const here = (name, floor, device) => {
   const randSentence = sentence.here[Math.floor(Math.random() * sentence.here.length)];
-  return sprintf(randSentence, name, floor, device)
+  return sprintf(randSentence, `@${name.toLowerCase()} ${sentence.emoticonMap[name.toLowerCase()]}`, floor, device.toLowerCase())
 }
 
 const notHere = (name) => {
   const randSentence = sentence.notHere[Math.floor(Math.random() * sentence.notHere.length)];
-  return sprintf(randSentence, name)
+  return sprintf(randSentence, `@${name.toLowerCase()}`)
 }
 
 const dontKnow = (name) => {
-  const randSentence = sentence.notKnow[Math.floor(Math.random() * sentence.notKnow.length)];
+  const randSentence = sentence.dontKnow[Math.floor(Math.random() * sentence.dontKnow.length)];
   return sprintf(randSentence, name)
 }
 
@@ -22,8 +22,10 @@ const noOne = () => {
 }
 
 const listPeople = (people) => {
+  const numPeople = people.length
+  const peopleString = `@${people.join(', @')}`
   const randSentence = sentence.listPeople[Math.floor(Math.random() * sentence.listPeople.length)];
-  return sprintf(randSentence, people)
+  return sprintf(randSentence, peopleString, numPeople)
 }
 
 module.exports = {

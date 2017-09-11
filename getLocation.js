@@ -13,8 +13,10 @@ const getAddressText = async (name, devices) => {
   let activeDevice
   let currentFloor
   let highScore = 0
+  const t = new Date()
+  t.setSeconds(t.getSeconds() - 30)
   for (let device of devices) {
-    if (device.macAddress) {
+    if (device.macAddress && device.updatedAt > t) {
       const { score: activeScore, latestFloor } = await Address.getActiveScoreByMacAddress(device.macAddress)
       console.log(`${name}'s ${device.device} has activeScore = ${activeScore} at ${latestFloor}${ORDINAL_NUMBER[latestFloor]} flr.`)
       if(activeScore > highScore) {
@@ -28,8 +30,8 @@ const getAddressText = async (name, devices) => {
     return rika.here(name, `${currentFloor}${ORDINAL_NUMBER[currentFloor]}`, activeDevice.device) //${activeDevice.device}
   }
   if (devices.length > 0) {
-    const t = new Date()
-    t.setSeconds(t.getSeconds() - 30)
+
+
     for (let device of devices) {
       if (device.updatedAt > t) return `${name} is probably not with device.`
     }

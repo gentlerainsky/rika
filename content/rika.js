@@ -25,14 +25,14 @@ const noOne = () => {
 
 const listPeople = (people) => {
   const numPeople = people.length
-  const peopleString = `@${people.join(', @')}`
+  const peopleString = `@${people.map(person => person.toLowerCase()).join(', @')}`
   const randSentence = getRandomSentence(sentence.listPeople)
   return sprintf(randSentence, peopleString, numPeople)
 }
 
 const listAbsent = (people) => {
   const numPeople = people.length
-  const peopleString = `@${people.join(', @')}`
+  const peopleString = `@${people.map(person => person.toLowerCase()).join(', @')}`
   const randSentence = getRandomSentence(sentence.listAbsent)
   return sprintf(randSentence, peopleString, numPeople)
 }

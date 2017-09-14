@@ -1,37 +1,39 @@
 const sprintf = require('sprintf-js').sprintf
 const sentence = require('./sentence')
 
+const getRandomSentence = (sentences) => sentences[Math.floor(Math.random() * sentence.length)]
+
 const here = (name, floor, device) => {
-  const randSentence = sentence.here[Math.floor(Math.random() * sentence.here.length)];
+  const randSentence = getRandomSentence(sentence.here)
   return sprintf(randSentence, `@${name.toLowerCase()} ${sentence.emoticonMap[name.toLowerCase()]}`, floor, device.toLowerCase())
 }
 
 const notHere = (name) => {
-  const randSentence = sentence.notHere[Math.floor(Math.random() * sentence.notHere.length)];
+  const randSentence = getRandomSentence(sentence.notHere)
   return sprintf(randSentence, `@${name.toLowerCase()}`)
 }
 
 const dontKnow = (name) => {
-  const randSentence = sentence.dontKnow[Math.floor(Math.random() * sentence.dontKnow.length)];
+  const randSentence = getRandomSentence(sentence.dontKnow)
   return sprintf(randSentence, name)
 }
 
 const noOne = () => {
-  const randSentence = sentence.noOne[Math.floor(Math.random() * sentence.noOne.length)];
+  const randSentence = getRandomSentence(sentence.noOne)
   return sprintf(randSentence)
 }
 
 const listPeople = (people) => {
   const numPeople = people.length
   const peopleString = `@${people.join(', @')}`
-  const randSentence = sentence.listPeople[Math.floor(Math.random() * sentence.listPeople.length)];
+  const randSentence = getRandomSentence(sentence.listPeople)
   return sprintf(randSentence, peopleString, numPeople)
 }
 
 const listAbsent = (people) => {
   const numPeople = people.length
   const peopleString = `@${people.join(', @')}`
-  const randSentence = sentence.listAbsent[Math.floor(Math.random() * sentence.listAbsent.length)];
+  const randSentence = getRandomSentence(sentence.listAbsent)
   return sprintf(randSentence, peopleString, numPeople)
 }
 

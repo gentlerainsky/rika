@@ -27,14 +27,15 @@ module.exports = {
   ],
   listPeople: [
     "There are %1$s at our office. %2$s people in total :indeed:",
-    "There are %2$s people there. %1$s are at office now :cat:"
+    "There are %2$s people here. %1$s are at office now :cat:"
   ],
   listAbsent: [
-    "There are %1$s not in our office. %2$s people in total :indeed:"
+    "%1$s are absent. %2$s people in total :cry:",
+    "You may not find %1$s at anywhere in our office today. I believe they are absent. :weary:"
   ],
   emoticonMap: {
     g: ':g:',
-    air: ':airblackhat: ',
+    air: ':airblackhat:',
     boat: ':boat:',
     ham: ':hamsome:',
     note: ':wat:',

@@ -30,8 +30,6 @@ const getAddressText = async (name, devices) => {
     return rika.here(name, `${currentFloor}${ORDINAL_NUMBER[currentFloor]}`, activeDevice.device) //${activeDevice.device}
   }
   if (devices.length > 0) {
-
-
     for (let device of devices) {
       if (device.updatedAt > t) return `${name} is probably not with his/her device.`
     }

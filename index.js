@@ -4,8 +4,7 @@ const { get, trim, toLower, capitalize } = require('lodash/fp')
 
 const bodyParser = require('body-parser')
 const { Address, User } = require('./model')
-const { getAddressText } = require('./getLocation')
-const rika = require('./content/rika')
+const { processCommand } = require('./cmd')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -20,30 +19,8 @@ app.get('/', async (req, res) => {
 })
 app.post('/api/slack', async (req, res) => {
   console.log(`${new Date()} - ${req.body.user_name} finds ${req.body.text}`)
-
-  const [sanitizedName] = [req.body.text]
-    .map(trim)
-    .map(toLower)
-    .map(str => str.replace('@', ''))
-  let text
-  if (sanitizedName === 'office') {
-    const t = new Date()
-    t.setSeconds(t.getSeconds() - 30)
-    const users = await User.find({
-      updatedAt: { $gte: t },
-      device: { $ne: 'Device' }
-    }).select('name')
-
-    const names = users.map(user => (capitalize(user.name)))
-    if (names.length === 0) {
-      text = rika.noOne()
-    } else {
-      text = rika.listPeople([...new Set(names)])
-    }
-    return res.send(text)
-  }
-  const users = await User.find({ name: sanitizedName })
-  text = await getAddressText(capitalize(sanitizedName), users)
+  const cmd = req.body.text
+  const text = await processCommand(cmd).catch(err => console.error(err))
   res.send(text)
 })
 app.post('/api/address', (req, res) => {

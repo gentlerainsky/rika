@@ -29,6 +29,9 @@ module.exports = {
     "There are %1$s at our office. %2$s people in total :indeed:",
     "There are %2$s people there. %1$s are at office now :cat:"
   ],
+  listAbsent: [
+    "There are %1$s not in our office. %2$s people in total :indeed:"
+  ],
   emoticonMap: {
     g: ':g:',
     air: ':airblackhat: ',

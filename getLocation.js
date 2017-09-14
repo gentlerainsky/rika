@@ -18,7 +18,7 @@ const getAddressText = async (name, devices) => {
   for (let device of devices) {
     if (device.macAddress && device.updatedAt > t) {
       const { score: activeScore, latestFloor } = await Address.getActiveScoreByMacAddress(device.macAddress)
-      console.log(`${name}'s ${device.device} has activeScore = ${activeScore} at ${latestFloor}${ORDINAL_NUMBER[latestFloor]} flr.`)
+      console.log(`${name}'s ${device.device} has activeScore = ${activeScore} at ${latestFloor}${ORDINAL_NUMBER[latestFloor]} flr.`, device.updatedAt)
       if(activeScore > highScore) {
         highScore = activeScore
         activeDevice = device

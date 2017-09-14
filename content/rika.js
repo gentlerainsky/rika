@@ -28,10 +28,18 @@ const listPeople = (people) => {
   return sprintf(randSentence, peopleString, numPeople)
 }
 
+const listAbsent = (people) => {
+  const numPeople = people.length
+  const peopleString = `@${people.join(', @')}`
+  const randSentence = sentence.listAbsent[Math.floor(Math.random() * sentence.listAbsent.length)];
+  return sprintf(randSentence, peopleString, numPeople)
+}
+
 module.exports = {
   here,
   notHere,
   dontKnow,
   noOne,
-  listPeople
+  listPeople,
+  listAbsent
 }

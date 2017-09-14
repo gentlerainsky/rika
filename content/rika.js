@@ -1,7 +1,7 @@
 const sprintf = require('sprintf-js').sprintf
 const sentence = require('./sentence')
 
-const getRandomSentence = (sentences) => sentences[Math.floor(Math.random() * sentence.length)]
+const getRandomSentence = sentences => sentences[Math.floor(Math.random() * sentences.length)]
 
 const here = (name, floor, device) => {
   const randSentence = getRandomSentence(sentence.here)

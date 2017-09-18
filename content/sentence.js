@@ -29,6 +29,10 @@ module.exports = {
     "There are %1$s at our office. %2$s people in total :indeed:",
     "There are %2$s people here. %1$s are at office now :cat:"
   ],
+  listFloor: [
+    "There are %1$s at %3$s floor. %2$s people in total :indeed:",
+    "There are %2$s people. %1$s are at %3$s floor now :cat:"
+  ],
   listAbsent: [
     "%1$s are absent. %2$s people in total :cry:",
     "You may not find %1$s at anywhere in our office today. I believe they are absent. :weary:"

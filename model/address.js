@@ -18,7 +18,7 @@ const Address = new Schema({
 Address.statics.getActiveScoreByMacAddress = async function getActiveScoreByMacAddress(macAddress) {
   const t = new Date()
   t.setMinutes(t.getMinutes() - 10)
-  const logs = await this.find({ mac_address: macAddress, createdAt: { $gte: t } }).sort({ createdAt: -1 }).limit(20)
+  const logs = await this.find({ mac_address: macAddress, createdAt: { $gt: t } }).sort({ createdAt: -1 }).limit(10).lean()
   let score = 0
   let prevLog
   let latestFloor

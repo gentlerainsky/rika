@@ -30,6 +30,13 @@ const listPeople = (people) => {
   return sprintf(randSentence, peopleString, numPeople)
 }
 
+const listFloor = (people, floor) => {
+  const numPeople = people.length
+  const peopleString = `@${people.map(person => person.toLowerCase()).join(', @')}`
+  const randSentence = getRandomSentence(sentence.listFloor)
+  return sprintf(randSentence, peopleString, numPeople, floor)
+}
+
 const listAbsent = (people) => {
   const numPeople = people.length
   const peopleString = `@${people.map(person => person.toLowerCase()).join(', @')}`
@@ -43,5 +50,6 @@ module.exports = {
   dontKnow,
   noOne,
   listPeople,
-  listAbsent
+  listAbsent,
+  listFloor
 }

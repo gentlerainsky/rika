@@ -1,7 +1,13 @@
 const { get, trim, toLower, capitalize, difference } = require('lodash/fp')
 const { Address, User } = require('./model')
-const { getAddressText } = require('./getLocation')
+const { getActiveDevice } = require('./getLocation')
 const rika = require('./content/rika')
+const ORDINAL_NUMBER = {
+  '1': 'st',
+  '2': 'nd',
+  '3': 'rd',
+  '4': 'th'
+}
 
 module.exports = Command = {
   getAbsentTimestamp: function () {
@@ -16,10 +22,35 @@ module.exports = Command = {
     switch (cmd) {
       case 'office': return Command.getOfficePeople()
       case 'absent':  return Command.getAbsentPeople()
-      default: return Command.getUserLocation(cmd)
+      default:
+        if (cmd.match(/.*floor/)) {
+          const floor = parseInt(cmd.slice(0,1))
+          if (floor) return Command.getPeopleByFloor(floor)
+        }
+        return Command.getUserLocation(cmd)
     }
   },
-
+  getPeopleByFloor: async function (floor) {
+    const timeout = Command.getAbsentTimestamp()
+    const users = await User.find({
+      updatedAt: { $gte: timeout },
+      device: { $ne: 'Device' },
+    }).select('name').lean()
+    let names = []
+    let foundNames = users.map(user => (user.name))
+    foundNames = [...new Set(foundNames)]
+    for (let userName of foundNames) {
+      const activeDevice = await Command.getUserActiveDevice(userName).catch(e => console.error(e))
+      if (activeDevice.floor === floor) {
+        names.push(capitalize(activeDevice.name))
+      } else {
+        console.log(activeDevice.device, `${activeDevice.floor}flor. is not on request flr.`)
+      }
+    }
+    console.log(names)
+    const floorText = `${floor}${ORDINAL_NUMBER[floor]}`
+    return rika.listFloor([...new Set(names)], floorText)
+  },
   getActiveNames: async function () {
     const timeout = Command.getAbsentTimestamp()
     const users = await User.find({
@@ -59,9 +90,25 @@ module.exports = Command = {
     }
     return text
   },
-
-  getUserLocation: async function (name) {
-    const userDevices = await User.find({ name })
-    return await getAddressText(capitalize(name), userDevices)
+  getUserActiveDevice: async function (name) {
+    const userDevices = await User.find({ name }).lean()
+    return await getActiveDevice(userDevices)
+  },
+  getUserLocation: async function (_name) {
+    const devices = await User.find({ name: _name })
+    const activeDevice = await getActiveDevice(devices)
+    const name = capitalize(_name)
+    if (activeDevice) {
+      const currentFloor = activeDevice.floor
+      return rika.here(name, `${currentFloor}${ORDINAL_NUMBER[currentFloor]}`, activeDevice.device)
+    }
+    if (devices.length > 0) {
+      const timeout = Command.getAbsentTimestamp()
+      for (let device of devices) {
+        if (device.updatedAt > timeout) return `${name} is probably not with his/her device.`
+      }
+      return rika.notHere(name)
+    }
+    return rika.dontKnow(name)
   }
 }

@@ -69,6 +69,8 @@ module.exports = {
     ipadtouch: ':apple:',
     jittaiphone: ':iphone:',
     nextcam: ':video_camera:',
-    unknown: ':ghost:'
+    unknown: ':ghost:',
+    sum: 'Σ',
+    ruam: 'Σ'
   }
 }

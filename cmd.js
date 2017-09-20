@@ -125,13 +125,13 @@ module.exports = Command = {
   },
   getOfficeMap: async function () {
     const names = await User.distinct('name')
-    const users = []
-    await Promise.all(
+    const users = await Promise.all(
       names.map(async (name) => {
         const floor = await Command.getUserFloor(name)
-        if (floor != null) {
-          users.push({ name, floor })
+        if (floor == null) {
+          return { name, floor: 'absent' }
         }
+        return { name, floor }
       })
     )
 
@@ -139,6 +139,13 @@ module.exports = Command = {
     const attachments = Object.keys(userByFloor).sort().reverse()
       .map((floor) => {
         const floorUsers = userByFloor[floor]
+        if (floor === 'absent') {
+          return {
+            title: `Absent`,
+            text: floorUsers.map(user => sentence.emoticonMap[user.name]).join(' ')
+          }
+        }
+
         return {
           title: `${floor}${ORDINAL_NUMBER[String(floor)]} Floor`,
           text: floorUsers.map(user => sentence.emoticonMap[user.name]).join(' ')

@@ -1,6 +1,7 @@
-const { get, trim, toLower, capitalize, difference } = require('lodash/fp')
+const { get, trim, toLower, capitalize, difference, groupBy } = require('lodash/fp')
 const { Address, User } = require('./model')
 const { getActiveDevice } = require('./getLocation')
+const sentence = require('./content/sentence')
 const rika = require('./content/rika')
 const ORDINAL_NUMBER = {
   '1': 'st',
@@ -22,6 +23,7 @@ module.exports = Command = {
     switch (cmd) {
       case 'office': return Command.getOfficePeople()
       case 'absent':  return Command.getAbsentPeople()
+      case 'map': return Command.getOfficeMap()
       default:
         if (cmd.match(/.*floor/)) {
           const floor = parseInt(cmd.slice(0,1))
@@ -110,5 +112,38 @@ module.exports = Command = {
       return rika.notHere(name)
     }
     return rika.dontKnow(name)
+  },
+  getUserFloor: async function (_name) {
+    const devices = await User.find({ name: _name })
+    const activeDevice = await getActiveDevice(devices)
+    const name = capitalize(_name)
+    if (activeDevice) {
+      const currentFloor = activeDevice.floor
+      return currentFloor
+    }
+    return null
+  },
+  getOfficeMap: async function () {
+    const names = await User.distinct('name')
+    const users = []
+    await Promise.all(
+      names.map(async (name) => {
+        const floor = await Command.getUserFloor(name)
+        if (floor != null) {
+          users.push({ name, floor })
+        }
+      })
+    )
+
+    const userByFloor = groupBy(user => user.floor, users)
+    const attachments = Object.keys(userByFloor).sort().reverse()
+      .map((floor) => {
+        const floorUsers = userByFloor[floor]
+        return {
+          title: `${floor}${ORDINAL_NUMBER[String(floor)]} Floor`,
+          text: floorUsers.map(user => sentence.emoticonMap[user.name]).join(' ')
+        }
+      })
+    return { attachments }
   }
 }

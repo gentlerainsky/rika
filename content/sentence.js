@@ -40,9 +40,9 @@ module.exports = {
   emoticonMap: {
     g: ':g:',
     air: ':airblackhat:',
-    boat: ':boat:',
+    boat: ':boatthug:',
     ham: ':hamsome:',
-    note: ':wat:',
+    note: ':ptoon:',
     net: ':netwander:',
     bird: ':birdboom:',
     ying: ':yingwithglasses:',

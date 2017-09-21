@@ -4,7 +4,7 @@ const Address = require('./address')
 const User = require('./user')
 
 mongoose.Promise = global.Promise
-mongoose.connect(DATABASE_URI)
+mongoose.connect(DATABASE_URI, { useMongoClient: true })
 
 module.exports = {
   Address,

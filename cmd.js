@@ -124,7 +124,7 @@ module.exports = Command = {
     return null
   },
   getOfficeMap: async function () {
-    const names = await User.distinct('name')
+    const names = await User.distinct('name', { device: { $ne: 'Device' } })
     const users = await Promise.all(
       names.map(async (name) => {
         const floor = await Command.getUserFloor(name)

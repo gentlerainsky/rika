@@ -25,8 +25,8 @@ module.exports = Command = {
       case 'absent':  return Command.getAbsentPeople()
       case 'map': return Command.getOfficeMap()
       default:
-        if (cmd.match(/.*floor/)) {
-          const floor = parseInt(cmd.slice(0,1))
+        if (cmd.match(/f[1-4]\b/i)) {
+          const floor = parseInt(cmd.slice(1,2))
           if (floor) return Command.getPeopleByFloor(floor)
         }
         return Command.getUserLocation(cmd)

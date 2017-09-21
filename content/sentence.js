@@ -46,7 +46,7 @@ module.exports = {
     net: ':netwander:',
     bird: ':birdboom:',
     ying: ':yingwithglasses:',
-    bookn: ':booknwat: :heart: :mamieo:',
+    bookn: ':booknwat:',
     book: ':bookthug2:',
     awe: ':awe:',
     hunt: ':hunt:',

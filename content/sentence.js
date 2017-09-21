@@ -70,7 +70,7 @@ module.exports = {
     jittaiphone: ':iphone:',
     nextcam: ':video_camera:',
     unknown: ':ghost:',
-    sum: 'Σ',
-    ruam: 'Σ'
+    sum: ':ruam:',
+    ruam: ':ruam:'
   }
 }

@@ -57,18 +57,18 @@ module.exports = Command = {
       updatedAt: { $gte: timeout },
       device: { $ne: 'Device' },
     }).select('name').lean()
-    let names = []
+
     let foundNames = users.map(user => (user.name))
     foundNames = [...new Set(foundNames)]
-    for (let userName of foundNames) {
-      const activeDevice = await Command.getUserActiveDevice(userName).catch(e => console.error(e))
-      if (activeDevice.floor === floor) {
-        names.push(capitalize(activeDevice.name))
-      } else {
-        console.log(activeDevice.device, `${activeDevice.floor}floor. is not on request floor.`)
-      }
-    }
-    console.log(names)
+
+    const activeDevices = await Promise.all(
+      foundNames.map(Command.getUserActiveDevice)
+    ).catch(console.error)
+
+    const names = activeDevices
+      .filter(activeDevice => activeDevice.floor === floor)
+      .map(str => capitalize(get('name', str)))
+
     const floorText = `${floor}${ORDINAL_NUMBER[floor]}`
     return rika.listFloor([...new Set(names)], floorText)
   },

@@ -28,11 +28,8 @@ module.exports = Command = {
       case 'map': return Command.getOfficeMap()
       default:
         const result = regexFloor.exec(cmd)
-        // console.log('resutl ', result)
-        // console.log('result length: ', result.length)
         if (result) {
-          const floor = result[2]
-          // console.log('Floor', floor)
+          const floor = Number(result[2])
           if (floor) return Command.getPeopleByFloor(floor)
         }
         return Command.getUserLocation(cmd)
@@ -52,7 +49,7 @@ module.exports = Command = {
       if (activeDevice.floor === floor) {
         names.push(capitalize(activeDevice.name))
       } else {
-        console.log(activeDevice.device, `${activeDevice.floor}flor. is not on request flr.`)
+        console.log(activeDevice.device, `${activeDevice.floor}floor. is not on request floor.`)
       }
     }
     console.log(names)

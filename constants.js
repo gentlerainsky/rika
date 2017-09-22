@@ -1,3 +1,3 @@
 module.exports = {
-  regexFloor: /^f[1-4]\b/
+  regexFloor: /^(f|floor)([1-4])$/
 }

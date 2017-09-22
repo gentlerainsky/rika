@@ -1,4 +1,14 @@
-const { get, trim, toLower, capitalize, difference, groupBy } = require('lodash/fp')
+const {
+  get,
+  trim,
+  toLower,
+  pipe,
+  replace,
+  capitalize,
+  difference,
+  groupBy
+} = require('lodash/fp')
+
 const { Address, User } = require('./model')
 const { getActiveDevice } = require('./getLocation')
 const sentence = require('./content/sentence')
@@ -12,6 +22,12 @@ const ORDINAL_NUMBER = {
   '4': 'th'
 }
 
+const sanitizeInput = pipe(
+  trim,
+  toLower,
+  replace('@', '')
+)
+
 module.exports = Command = {
   getAbsentTimestamp: function () {
     const t = new Date()
@@ -20,8 +36,8 @@ module.exports = Command = {
   },
 
   processCommand: async function (text) {
-    const [cmd] = [text].map(trim).map(toLower)
-    .map(str => str.replace('@', ''))
+    const cmd = sanitizeInput(text)
+
     switch (cmd) {
       case 'office': return Command.getOfficePeople()
       case 'absent':  return Command.getAbsentPeople()

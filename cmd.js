@@ -3,6 +3,8 @@ const { Address, User } = require('./model')
 const { getActiveDevice } = require('./getLocation')
 const sentence = require('./content/sentence')
 const rika = require('./content/rika')
+const { regexFloor } = require('./constants')
+
 const ORDINAL_NUMBER = {
   '1': 'st',
   '2': 'nd',
@@ -25,8 +27,12 @@ module.exports = Command = {
       case 'absent':  return Command.getAbsentPeople()
       case 'map': return Command.getOfficeMap()
       default:
-        if (cmd.match(/.*floor/)) {
-          const floor = parseInt(cmd.slice(0,1))
+        const result = regexFloor.exec(cmd)
+        // console.log('resutl ', result)
+        // console.log('result length: ', result.length)
+        if (result) {
+          const floor = result[2]
+          // console.log('Floor', floor)
           if (floor) return Command.getPeopleByFloor(floor)
         }
         return Command.getUserLocation(cmd)

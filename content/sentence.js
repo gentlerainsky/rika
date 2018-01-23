@@ -63,6 +63,7 @@ module.exports = {
     groupw: ':groupfatboy:',
     johnny: ':johnny:',
     ahd: ':ahd:',
+    patr: ':patr:',
     august: ':hypnotoad2:',
     chromecast1: ':google:',
     esp: ':question:',

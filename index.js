@@ -13,7 +13,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 /** APIs */
 app.get('/', async (req, res) => {
-  res.send('Poop!')
+  const response = {
+    message: 'Hello, this is Mr.Columbus. I can help you find your friends.'
+  }
+  response.datetime = moment()
+  response.last_commit = await exec('git log -n 1', { encoding: 'UTF-8' })
+  response.last_commit = response.last_commit.stdout
+  res.status(200).json(response)
 })
 
 // Slack hook

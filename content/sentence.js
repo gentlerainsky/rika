@@ -72,6 +72,12 @@ module.exports = {
     nextcam: ':video_camera:',
     unknown: ':ghost:',
     sum: ':ruam:',
-    ruam: ':ruam:'
+    ruam: ':ruam:',
+    cal: ':cal:',
+    best: ':best:',
+    mann: ':man:',
+    bank: ':bank:',
+    bass: ':bass:',
+    ta: ':ta:'
   }
 }

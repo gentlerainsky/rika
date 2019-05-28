@@ -1,4 +1,7 @@
 const express = require('express')
+const moment = require('moment')
+const util = require('util')
+const { exec } = require('child_process')
 const bodyParser = require('body-parser')
 const { get, trim, toLower } = require('lodash/fp')
 
@@ -11,13 +14,15 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+const execPromise = util.promisify(exec)
+
 /** APIs */
 app.get('/', async (req, res) => {
   const response = {
     message: 'Hello, this is Mr.Columbus. I can help you find your friends.'
   }
   response.datetime = moment()
-  response.last_commit = await exec('git log -n 1', { encoding: 'UTF-8' })
+  response.last_commit = await execPromise('git log -n 1', { encoding: 'UTF-8' })
   response.last_commit = response.last_commit.stdout
   res.status(200).json(response)
 })

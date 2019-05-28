@@ -68,3 +68,5 @@ jspm_packages
 
 kubernetes/deployment.yaml
 .idea
+
+config.js

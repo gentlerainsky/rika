@@ -75,8 +75,8 @@ module.exports = {
     ruam: ':ruam:',
     cal: ':cal:',
     best: ':best:',
-    mann: ':man:',
-    bank: ':bank:',
+    mann: ':mannn:',
+    bank: ':bankb:',
     bass: ':bass:',
     ta: ':ta:'
   }

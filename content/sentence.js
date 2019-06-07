@@ -78,6 +78,10 @@ module.exports = {
     mann: ':mannn:',
     bank: ':bankb:',
     bass: ':bass:',
-    ta: ':ta:'
+    ta: ':ta:',
+    pek: ':pek:',
+    fudgy: ':fudgy:',
+    tao: ':tao:',
+    tid: ':tid:'
   }
 }
